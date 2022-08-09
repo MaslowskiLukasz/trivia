@@ -25,7 +25,9 @@ export default {
 
 <template>
   <main>
-    <StartView />
+    <p v-if="!quizStore.questionsLoaded">
+      <StartView />
+    </p>
     <p v-if="quizStore.questionsLoaded">
       Question nr {{ quizStore.currentQuestion + 1 }} /
       {{ quizStore.questions.length }}
