@@ -27,6 +27,8 @@ export default {
   <main>
     <StartView />
     <p v-if="quizStore.questionsLoaded">
+      Question nr {{ quizStore.currentQuestion + 1 }} /
+      {{ quizStore.questions.length }}
       <QuestionView
         :question="quizStore.questions[quizStore.currentQuestion].question"
         :answers="quizStore.questions[quizStore.currentQuestion].answers"
