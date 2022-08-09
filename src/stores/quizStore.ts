@@ -32,8 +32,6 @@ export const useQuizStore = defineStore({
 
       this.questions = [...data];
       this.questionsLoaded = true;
-      console.log(`store = ${JSON.stringify(this.questions)}`);
-      console.log(`question loaded = ${this.questionsLoaded}`);
     },
     gotoNextQuestion() {
       if (this.currentQuestion < this.questions.length - 1) {
