@@ -36,10 +36,14 @@ export const useQuizStore = defineStore({
       console.log(`question loaded = ${this.questionsLoaded}`);
     },
     gotoNextQuestion() {
-      this.currentQuestion++;
+      if (this.currentQuestion < this.questions.length - 1) {
+        this.currentQuestion++;
+      }
     },
     gotoPreviousQuestion() {
-      this.currentQuestion--;
+      if (this.currentQuestion > 0) {
+        this.currentQuestion--;
+      }
     },
   },
 });
