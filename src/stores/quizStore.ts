@@ -51,5 +51,27 @@ export const useQuizStore = defineStore({
     selectAnswer(questionIndex: number, answerIndex: number) {
       this.questions[questionIndex].selectedAnswer = answerIndex;
     },
+    isAnswerCorrect(index: number) {
+      const selectedIndex = this.questions[index].selectedAnswer;
+      const selected = this.questions[index].answers[selectedIndex];
+      if (selected === this.questions[index].correctAnswer) {
+        return true;
+      }
+
+      return false;
+    },
+    getResults() {
+      let correct = 0;
+      this.questions.map((question, index) => {
+        if (this.isAnswerCorrect(index)) {
+          correct += 1;
+        }
+      });
+
+      return correct;
+    },
+    reset() {
+      this.$reset();
+    },
   },
 });
