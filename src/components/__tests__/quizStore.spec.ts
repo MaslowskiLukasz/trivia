@@ -96,6 +96,12 @@ describe("Quiz store - happy path", () => {
     store.gotoPreviousQuestion();
     expect(store.currentQuestion).toBe(0);
   });
+
+  test("selects answer", async () => {
+    await store.fetchQuestions();
+    store.selectAnswer(0, 1);
+    expect(store.questions[0].selectedAnswer).toBe(1);
+  });
 });
 
 describe("Quiz store - failure API request", () => {
