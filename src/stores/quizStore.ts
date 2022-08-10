@@ -14,24 +14,29 @@ export const useQuizStore = defineStore({
     questions: [] as Question[],
     currentQuestion: 0,
     questionsLoaded: false,
+    errorMsg: "",
   }),
   actions: {
     async fetchQuestions() {
       const url = "https://opentdb.com/api.php?amount=10&type=multiple";
-      const response = await axios.get(url);
-      const results = await response.data.results;
-      const data: Question[] = [];
-
-      results.map((item) => {
-        data.push({
-          question: item.question,
-          answers: [...item.incorrect_answers, item.correct_answer],
-          correctAnswer: item.correct_answer,
+      try {
+        const response = await axios.get(url);
+        const results = await response.data.results;
+        const data: Question[] = [];
+  
+        results.map((item) => {
+          data.push({
+            question: item.question,
+            answers: [...item.incorrect_answers, item.correct_answer],
+            correctAnswer: item.correct_answer,
+          });
         });
-      });
-
-      this.questions = [...data];
-      this.questionsLoaded = true;
+  
+        this.questions = [...data];
+        this.questionsLoaded = true;
+      } catch(error) {
+        this.errorMsg = error.message;
+      }
     },
     gotoNextQuestion() {
       if (this.currentQuestion < this.questions.length - 1) {
