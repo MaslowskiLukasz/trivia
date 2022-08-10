@@ -43,7 +43,7 @@ describe("Quiz store - happy path", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    store.$reset;
+    store.$reset();
   });
 
   test("questions loaded flag set after fetching questions", async () => {
@@ -95,5 +95,34 @@ describe("Quiz store - happy path", () => {
     await store.fetchQuestions();
     store.gotoPreviousQuestion();
     expect(store.currentQuestion).toBe(0);
+  });
+});
+
+describe("Quiz store - failure API request", () => {
+  let store: ReturnType<typeof useQuizStore>;
+
+  beforeEach(() => {
+    store = useQuizStore();
+    vi.spyOn(axios, "get").mockRejectedValue(new Error("Bad request"));
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    store.$reset();
+  });
+
+  test("doesn't set questionsLoaded flag when request fails ", async () => {
+    await store.fetchQuestions();
+    expect(store.questionsLoaded).toBe(false);
+  });
+
+  test("doesn't set state when request fails", async () => {
+    await store.fetchQuestions();
+    expect(store.questions.length).toBe(0);
+  });
+
+  test("set error message when request fails", async () => {
+    await store.fetchQuestions();
+    expect(store.errorMsg).toMatch("Bad request");
   });
 });
