@@ -5,8 +5,8 @@ import ButtonComponent from "../components/ButtonComponent.vue";
 
 export default {
   methods: {
-    consoleClick(index: number) {
-      this.quizStore.questions[this.quizStore.currentQuestion].selectedAnswer = index;
+    selectAnswer(index: number) {
+      this.quizStore.selectAnswer(this.quizStore.currentQuestion, index);
     },
   },
   computed: {
@@ -31,7 +31,7 @@ export default {
   >
     <ButtonComponent
       :value="answer"
-      :onClick="consoleClick"
+      :onClick="selectAnswer"
       :index="index"
       :class="[
         quizStore.questions[quizStore.currentQuestion].selectedAnswer === index
@@ -40,4 +40,12 @@ export default {
       ]"
     />
   </div>
+  <ButtonComponent
+    :value="'Previous'"
+    :onClick="quizStore.gotoPreviousQuestion"
+  />
+  <ButtonComponent
+    :value="'Next'"
+    :onClick="quizStore.gotoNextQuestion"
+  />
 </template>
