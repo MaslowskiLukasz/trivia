@@ -6,14 +6,20 @@ import { useQuizStore } from "./stores/quizStore";
 import ButtonComponent from "./components/ButtonComponent.vue";
 
 export default {
-  data() {
-    return {
-      next: "Next",
-      previous: "Previous",
-    };
+  methods: {
+    clicked() {
+      console.log("submit");
+    },
   },
   computed: {
     ...mapStores(useQuizStore),
+    readyToSubmit() {
+      return (
+        !this.quizStore.questions.some(
+          (question) => question.selectedAnswer === undefined
+        ) && this.quizStore.questionsLoaded
+      );
+    },
   },
   components: {
     StartView,
@@ -31,13 +37,16 @@ export default {
     <p v-if="quizStore.questionsLoaded">
       <QuestionView />
       <ButtonComponent
-        :value="previous"
+        :value="'Previous'"
         :onClick="quizStore.gotoPreviousQuestion"
       />
       <ButtonComponent
-        :value="next"
+        :value="'Next'"
         :onClick="quizStore.gotoNextQuestion"
       />
+    </p>
+    <p v-if="readyToSubmit">
+      <ButtonComponent :value="'Submit'" :onClick="clicked" />
     </p>
   </main>
 </template>
