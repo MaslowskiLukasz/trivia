@@ -4,7 +4,7 @@ import axios from "axios";
 export interface Question {
   question: string;
   answers: string[];
-  correctAnswer: number;
+  correctAnswer: string;
   selectedAnswer?: number;
 }
 
@@ -47,6 +47,9 @@ export const useQuizStore = defineStore({
       if (this.currentQuestion > 0) {
         this.currentQuestion--;
       }
+    },
+    selectAnswer(questionIndex: number, answerIndex: number) {
+      this.questions[questionIndex].selectedAnswer = answerIndex;
     },
   },
 });
