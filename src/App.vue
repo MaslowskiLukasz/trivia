@@ -4,11 +4,23 @@ import QuestionView from "./views/QuestionView.vue";
 import { mapStores } from "pinia";
 import { useQuizStore } from "./stores/quizStore";
 import ButtonComponent from "./components/ButtonComponent.vue";
+import ResultView from "./views/ResultView.vue";
 
 export default {
+  data() {
+    return {
+      showResult: false,
+    };
+  },
   methods: {
-    clicked() {
+    submit() {
       console.log("submit");
+      this.showResult = true;
+    },
+    restart() {
+      this.showResult = false;
+      this.quizStore.reset();
+      this.quizStore.fetchQuestions();
     },
   },
   computed: {
@@ -25,28 +37,25 @@ export default {
     StartView,
     QuestionView,
     ButtonComponent,
+    ResultView,
   },
 };
 </script>
 
 <template>
   <main>
-    <p v-if="!quizStore.questionsLoaded">
+    <p v-if="!quizStore.questionsLoaded && !showResult">
       <StartView />
     </p>
-    <p v-if="quizStore.questionsLoaded">
+    <p v-if="quizStore.questionsLoaded && !showResult">
       <QuestionView />
-      <ButtonComponent
-        :value="'Previous'"
-        :onClick="quizStore.gotoPreviousQuestion"
-      />
-      <ButtonComponent
-        :value="'Next'"
-        :onClick="quizStore.gotoNextQuestion"
-      />
     </p>
-    <p v-if="readyToSubmit">
-      <ButtonComponent :value="'Submit'" :onClick="clicked" />
+    <p v-if="readyToSubmit && !showResult">
+      <ButtonComponent :value="'Submit'" :onClick="submit" />
+    </p>
+    <p v-if="showResult">
+      <ResultView />
+      <ButtonComponent :value="'Start next quiz'" :onClick="restart" />
     </p>
   </main>
 </template>
