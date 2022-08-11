@@ -2,6 +2,7 @@
 export default {
   props: {
     value: String,
+    index: Number,
     onClick: {
       type: Function,
       required: true,
@@ -11,5 +12,13 @@ export default {
 </script>
 
 <template>
-  <button @click="onClick">{{ value }}</button>
+  <button @click="onClick(index)">
+    {{ value }}
+  </button>
 </template>
+
+<style>
+.selected {
+  background-color: aquamarine;
+}
+</style>
