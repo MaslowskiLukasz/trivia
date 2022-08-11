@@ -129,6 +129,18 @@ describe("Quiz store - happy path", () => {
     expect(store.currentQuestion).toBe(0);
     expect(store.questionsLoaded).toBe(false);
   });
+
+  test("change current question - inside range", async () => {
+    await store.fetchQuestions();
+    store.gotoQuestion(1);
+    expect(store.currentQuestion).toBe(1);
+  });
+
+  test("change current question - outside of range", async () => {
+    await store.fetchQuestions();
+    store.gotoQuestion(23);
+    expect(store.currentQuestion).toBe(0);
+  });
 });
 
 describe("Quiz store - failure API request", () => {

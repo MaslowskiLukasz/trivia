@@ -73,5 +73,10 @@ export const useQuizStore = defineStore({
     reset() {
       this.$reset();
     },
+    gotoQuestion(index: number) {
+      if (index >= 0 && index < this.questions.length) {
+        this.currentQuestion = index;
+      }
+    },
   },
 });
