@@ -17,8 +17,22 @@ export default {
   </button>
 </template>
 
+<style scoped>
+button {
+  display: block;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  /*margin: 0.5rem;*/
+}
+</style>
+
 <style>
 .selected {
   background-color: aquamarine;
+}
+
+button:hover {
+  background-color: coral;
 }
 </style>
