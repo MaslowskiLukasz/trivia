@@ -15,11 +15,14 @@ export const useQuizStore = defineStore({
     currentQuestion: 0,
     questionsLoaded: false,
     errorMsg: "",
+    isLoading: false,
   }),
   actions: {
     async fetchQuestions() {
       const url = "https://opentdb.com/api.php?amount=10&type=multiple";
       try {
+        this.questionsLoaded = false;
+        this.isLoading = true;
         const response = await axios.get(url);
         const results = await response.data.results;
         const data: Question[] = [];
@@ -35,8 +38,10 @@ export const useQuizStore = defineStore({
   
         this.questions = [...data];
         this.questionsLoaded = true;
+        this.isLoading = false;
       } catch(error) {
         this.errorMsg = error.message;
+        this.isLoading = false;
       }
     },
     gotoNextQuestion() {
