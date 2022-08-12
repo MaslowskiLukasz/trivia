@@ -32,7 +32,7 @@ export const useQuizStore = defineStore({
         const response = await axios.get(url);
         const results = await response.data.results;
         const data: Question[] = [];
-  
+
         results.map((item: ApiResponseElement) => {
           const decodedQuestion = this.decodeText(item.question);
           const decodedCorrect = this.decodeText(item.correct_answer);
@@ -46,11 +46,11 @@ export const useQuizStore = defineStore({
             correctAnswer: item.correct_answer,
           });
         });
-  
+
         this.questions = [...data];
         this.questionsLoaded = true;
         this.isLoading = false;
-      } catch(error: any) {
+      } catch (error: any) {
         this.errorMsg = error.message;
         this.isLoading = false;
       }

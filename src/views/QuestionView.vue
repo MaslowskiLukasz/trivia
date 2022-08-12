@@ -63,7 +63,8 @@ export default {
         :onClick="selectCurrentAnswer"
         :index="index"
         :class="[
-          quizStore.questions[quizStore.currentQuestion].selectedAnswer === index
+          quizStore.questions[quizStore.currentQuestion].selectedAnswer ===
+          index
             ? 'selected'
             : '',
         ]"
