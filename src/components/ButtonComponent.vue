@@ -34,6 +34,8 @@ button {
 
 button {
   background-color: #fcf8e8;
+  color: #000;
+  transition: background-color 0.2s ease-in, transform 0.2s ease-in-out;
 }
 
 button:hover {
