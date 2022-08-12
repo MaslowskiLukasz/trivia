@@ -5,6 +5,8 @@ import { mapStores } from "pinia";
 import { useQuizStore } from "./stores/quizStore";
 import ButtonComponent from "./components/ButtonComponent.vue";
 import ResultView from "./views/ResultView.vue";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   data() {
@@ -38,13 +40,22 @@ export default {
     QuestionView,
     ButtonComponent,
     ResultView,
+    Loading,
   },
 };
 </script>
 
 <template>
   <main>
-    <div v-if="!quizStore.questionsLoaded && !showResult">
+    <loading
+      v-model:active="quizStore.isLoading"
+      :can-cancel="false"
+      :is-full-page="fullPage"
+      :color="'#76549a'"
+      :background-color="'#282828'"
+    />
+
+    <div v-if="!quizStore.questionsLoaded && !showResult && !quizStore.isLoading">
       <StartView />
     </div>
     <div v-if="quizStore.questionsLoaded && !showResult">
