@@ -20,4 +20,8 @@ button {
   border-radius: 50%;
   text-align: center;
 }
+
+.current {
+  transform: scale(1.2);
+}
 </style>
