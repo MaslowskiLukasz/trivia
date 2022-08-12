@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "chart.js": "^3.9.1",
     "pinia": "^2.0.16",
     "vue": "^3.2.37",
-    "vue-axios": "^3.4.1"
+    "vue-axios": "^3.4.1",
+    "vue-chartjs": "^4.1.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
