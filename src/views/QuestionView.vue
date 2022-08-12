@@ -10,12 +10,12 @@ import ProgressComponent from "../components/ProgressComponent.vue";
 
 export default {
   methods: {
-    ...mapActions(useQuizStore, ["selectAnswer", "gotoQuestion"]),
+    //...mapActions(useQuizStore, ["selectAnswer", "gotoQuestion"]),
     selectCurrentAnswer(index: number) {
-      this.selectAnswer(this.quizStore.currentQuestion, index);
+      this.quizStore.selectAnswer(this.quizStore.currentQuestion, index);
     },
     changeQuestion(index: number) {
-      this.gotoQuestion(index - 1);
+      this.quizStore.gotoQuestion(index - 1);
     },
   },
   computed: {
@@ -85,9 +85,9 @@ export default {
   </section>
 </template>
 
-<style>
+<style scoped>
 #question {
-  margin-bottom: 2em; 
+  margin-bottom: 2em;
 }
 
 #answers {
