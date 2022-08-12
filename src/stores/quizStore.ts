@@ -25,9 +25,10 @@ export const useQuizStore = defineStore({
         const data: Question[] = [];
   
         results.map((item) => {
+          const answers = [...item.incorrect_answers, item.correct_answer];
           data.push({
             question: item.question,
-            answers: [...item.incorrect_answers, item.correct_answer],
+            answers: [...this.shuffleArray(answers)],
             correctAnswer: item.correct_answer,
           });
         });
@@ -77,6 +78,9 @@ export const useQuizStore = defineStore({
       if (index >= 0 && index < this.questions.length) {
         this.currentQuestion = index;
       }
+    },
+    shuffleArray(arr: string[]): string[] {
+      return arr.sort(() => 0.5 - Math.random());
     },
   },
 });
