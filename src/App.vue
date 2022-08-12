@@ -5,7 +5,7 @@ const quizStore = useQuizStore();
 <script lang="ts">
 import StartView from "./views/StartView.vue";
 import QuestionView from "./views/QuestionView.vue";
-import { mapState, mapStores, mapActions } from "pinia";
+import { mapState, mapStores } from "pinia";
 import { useQuizStore } from "./stores/quizStore";
 import ButtonComponent from "./components/ButtonComponent.vue";
 import ResultView from "./views/ResultView.vue";
@@ -20,15 +20,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useQuizStore, ["fetchQuestions", "reset"]),
     submit() {
-      console.log("submit");
       this.showResult = true;
     },
     restart() {
       this.showResult = false;
-      this.reset();
-      this.fetchQuestions();
+      this.quizStore.reset();
+      this.quizStore.fetchQuestions();
     },
   },
   computed: {
