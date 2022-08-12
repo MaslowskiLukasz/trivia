@@ -4,13 +4,12 @@ const quizStore = useQuizStore();
 
 <script lang="ts">
 import { useQuizStore } from "@/stores/quizStore";
-import { mapActions, mapStores } from "pinia";
+import { mapStores } from "pinia";
 import ButtonComponent from "../components/ButtonComponent.vue";
 import ProgressComponent from "../components/ProgressComponent.vue";
 
 export default {
   methods: {
-    //...mapActions(useQuizStore, ["selectAnswer", "gotoQuestion"]),
     selectCurrentAnswer(index: number) {
       this.quizStore.selectAnswer(this.quizStore.currentQuestion, index);
     },

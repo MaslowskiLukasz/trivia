@@ -13,7 +13,7 @@ import {
   Legend,
   ArcElement,
   CategoryScale,
-} from 'chart.js'
+} from "chart.js";
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
