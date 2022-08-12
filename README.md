@@ -1,8 +1,11 @@
-# trivia_app
+# Trivia App
 
 ## Live demo
 
 [LIVE DEMO](https://maslowskilukasz.github.io/trivia/)
+
+![screely-1660316052320](https://user-images.githubusercontent.com/26800508/184382558-23d34a09-82f3-44d4-bf36-1a744cd88ce6.png)
+
 
 ## Technologies used:
 - Vue3 + Typescript
