@@ -23,16 +23,31 @@ button {
   border: none;
   padding: 1rem;
   width: 100%;
-  /*margin: 0.5rem;*/
+  height: 100%;
 }
 </style>
 
 <style>
 .selected {
-  background-color: aquamarine;
+  background-color: #94b49f;
+}
+
+button {
+  background-color: #fcf8e8;
 }
 
 button:hover {
-  background-color: coral;
+  background-color: #afb4ff;
+  color: #000;
+}
+
+.submit-btn {
+  background-color: #5a8f7b;
+  color: #fff;
+}
+
+.navigation-btn {
+  background-color: #76549a;
+  color: #fff;
 }
 </style>
