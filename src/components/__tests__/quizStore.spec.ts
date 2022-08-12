@@ -103,25 +103,6 @@ describe("Quiz store - happy path", () => {
     expect(store.questions[0].selectedAnswer).toBe(1);
   });
 
-  test("check if answer is correct - correct answer selected", async () => {
-    await store.fetchQuestions();
-    store.selectAnswer(0, 3);
-    expect(store.isAnswerCorrect(0)).toBe(true);
-  });
-
-  test("check if answer is correct - wrong answer selected", async () => {
-    await store.fetchQuestions();
-    store.selectAnswer(0, 0);
-    expect(store.isAnswerCorrect(0)).toBe(false);
-  });
-
-  test("check result", async () => {
-    await store.fetchQuestions();
-    store.selectAnswer(0, 3);
-    store.selectAnswer(1, 2);
-    expect(store.getResults()).toBe(1);
-  });
-
   test("reset", async () => {
     await store.fetchQuestions();
     store.reset();
