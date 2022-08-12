@@ -34,9 +34,14 @@ export const useQuizStore = defineStore({
         const data: Question[] = [];
   
         results.map((item: ApiResponseElement) => {
-          const answers = [...item.incorrect_answers, item.correct_answer];
+          const decodedQuestion = this.decodeText(item.question);
+          const decodedCorrect = this.decodeText(item.correct_answer);
+          const decodedIncorrect = item.incorrect_answers.map((item) =>
+            this.decodeText(item)
+          );
+          const answers = [...decodedIncorrect, decodedCorrect];
           data.push({
-            question: item.question,
+            question: decodedQuestion,
             answers: [...this.shuffleArray(answers)],
             correctAnswer: item.correct_answer,
           });
@@ -98,6 +103,11 @@ export const useQuizStore = defineStore({
     },
     shuffleArray(arr: string[]): string[] {
       return arr.sort(() => 0.5 - Math.random());
+    },
+    decodeText(text: string): string {
+      const area = document.createElement("textarea");
+      area.innerHTML = text;
+      return area.value;
     },
   },
 });
