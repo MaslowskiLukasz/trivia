@@ -35,6 +35,7 @@ export default {
         :onClick="changeQuestion"
         :class="[
           typeof question.selectedAnswer !== 'undefined' ? 'selected' : '',
+          index === quizStore.currentQuestion ? 'current' : '',
         ]"
       ></ProgressComponent>
     </div>
@@ -67,11 +68,13 @@ export default {
   </section>
   <section id="navigation">
     <ButtonComponent
-      :value="'Previous'"
+      class="navigation-btn"
+      :value="'<< Previous'"
       :onClick="quizStore.gotoPreviousQuestion"
     />
     <ButtonComponent
-      :value="'Next'"
+      class="navigation-btn"
+      :value="'Next >>'"
       :onClick="quizStore.gotoNextQuestion"
     />
   </section>
@@ -79,17 +82,15 @@ export default {
 
 <style>
 #question {
-  margin-bottom: 2em;
+  margin-bottom: 2em; 
 }
 
 #answers {
   padding: 2rem;
-  margin-bottom: 2em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
+}
+
+.answer {
+  margin-bottom: 1rem;
 }
 
 #progress {
@@ -100,12 +101,29 @@ export default {
 }
 
 .question-number {
-  margin: 0.2em;
+  margin: 0.2rem;
 }
 
 #navigation {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 10rem;
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 1rem;
+  padding: 2rem;
+}
+
+@media (min-width: 550px) {
+  #answers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+  }
+
+  #navigation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10rem;
+  }
 }
 </style>

@@ -44,18 +44,51 @@ export default {
 
 <template>
   <main>
-    <p v-if="!quizStore.questionsLoaded && !showResult">
+    <div v-if="!quizStore.questionsLoaded && !showResult">
       <StartView />
-    </p>
-    <p v-if="quizStore.questionsLoaded && !showResult">
+    </div>
+    <div v-if="quizStore.questionsLoaded && !showResult">
       <QuestionView />
-    </p>
-    <p v-if="readyToSubmit && !showResult">
-      <ButtonComponent :value="'Submit'" :onClick="submit" />
-    </p>
-    <p v-if="showResult">
+    </div>
+    <div v-if="showResult">
       <ResultView />
       <ButtonComponent :value="'Start next quiz'" :onClick="restart" />
-    </p>
+    </div>
+    <div
+      class="submit"
+      :style="{
+        visibility: readyToSubmit && !showResult ? 'visible' : 'hidden',
+      }"
+    >
+      <div id="submit-btn-wrapper">
+        <ButtonComponent
+          :value="'Submit'"
+          :onClick="submit"
+          class="submit-btn"
+        />
+      </div>
+    </div>
   </main>
 </template>
+
+<style>
+main {
+  width: 100%;
+}
+
+.submit {
+  margin-right: 2em;
+  width: 100%;
+}
+
+#submit-btn-wrapper {
+  padding: 2em;
+}
+
+@media (min-width: 550px) {
+  .submit {
+    margin: 0 auto;
+    width: 30%;
+  }
+}
+</style>
