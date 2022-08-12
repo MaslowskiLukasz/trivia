@@ -8,14 +8,20 @@ export interface Question {
   selectedAnswer?: number;
 }
 
+interface ApiResponseElement {
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
 export const useQuizStore = defineStore({
   id: "quiz",
   state: () => ({
     questions: [] as Question[],
-    currentQuestion: 0,
-    questionsLoaded: false,
-    errorMsg: "",
-    isLoading: false,
+    currentQuestion: 0 as number,
+    questionsLoaded: false as boolean,
+    errorMsg: "" as string,
+    isLoading: false as boolean,
   }),
   actions: {
     async fetchQuestions() {
@@ -27,7 +33,7 @@ export const useQuizStore = defineStore({
         const results = await response.data.results;
         const data: Question[] = [];
   
-        results.map((item) => {
+        results.map((item: ApiResponseElement) => {
           const answers = [...item.incorrect_answers, item.correct_answer];
           data.push({
             question: item.question,
@@ -39,7 +45,7 @@ export const useQuizStore = defineStore({
         this.questions = [...data];
         this.questionsLoaded = true;
         this.isLoading = false;
-      } catch(error) {
+      } catch(error: any) {
         this.errorMsg = error.message;
         this.isLoading = false;
       }
@@ -58,8 +64,14 @@ export const useQuizStore = defineStore({
       this.questions[questionIndex].selectedAnswer = answerIndex;
     },
     isAnswerCorrect(index: number) {
-      const selectedIndex = this.questions[index].selectedAnswer;
-      const selected = this.questions[index].answers[selectedIndex];
+      const selectedIndex =
+        this.questions[index].selectedAnswer != undefined
+          ? this.questions[index].selectedAnswer
+          : null;
+      const selected =
+        selectedIndex != null
+          ? this.questions[index].answers[selectedIndex]
+          : null;
       if (selected === this.questions[index].correctAnswer) {
         return true;
       }
