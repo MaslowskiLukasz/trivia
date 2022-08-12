@@ -1,12 +1,17 @@
+<script setup lang="ts">
+const quizStore = useQuizStore();
+</script>
+
 <script lang="ts">
 import StartView from "./views/StartView.vue";
 import QuestionView from "./views/QuestionView.vue";
-import { mapStores } from "pinia";
+import { mapState, mapStores, mapActions } from "pinia";
 import { useQuizStore } from "./stores/quizStore";
 import ButtonComponent from "./components/ButtonComponent.vue";
 import ResultView from "./views/ResultView.vue";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import type { Question } from "./stores/quizStore";
 
 export default {
   data() {
@@ -15,23 +20,25 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useQuizStore, ["fetchQuestions", "reset"]),
     submit() {
       console.log("submit");
       this.showResult = true;
     },
     restart() {
       this.showResult = false;
-      this.quizStore.reset();
-      this.quizStore.fetchQuestions();
+      this.reset();
+      this.fetchQuestions();
     },
   },
   computed: {
+    ...mapState(useQuizStore, ["questionsLoaded"]),
     ...mapStores(useQuizStore),
     readyToSubmit() {
       return (
         !this.quizStore.questions.some(
-          (question) => question.selectedAnswer === undefined
-        ) && this.quizStore.questionsLoaded
+          (question: Question) => question.selectedAnswer === undefined
+        ) && this.questionsLoaded
       );
     },
   },
@@ -50,12 +57,14 @@ export default {
     <loading
       v-model:active="quizStore.isLoading"
       :can-cancel="false"
-      :is-full-page="fullPage"
+      :is-full-page="true"
       :color="'#76549a'"
       :background-color="'#282828'"
     />
 
-    <div v-if="!quizStore.questionsLoaded && !showResult && !quizStore.isLoading">
+    <div
+      v-if="!quizStore.questionsLoaded && !showResult && !quizStore.isLoading"
+    >
       <StartView />
     </div>
     <div v-if="quizStore.questionsLoaded && !showResult">

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const quizStore = useQuizStore();
+</script>
+
 <script lang="ts">
 import { useQuizStore } from "@/stores/quizStore";
 import { mapStores } from "pinia";

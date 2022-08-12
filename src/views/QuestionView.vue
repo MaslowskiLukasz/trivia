@@ -1,16 +1,21 @@
+<script setup lang="ts">
+const quizStore = useQuizStore();
+</script>
+
 <script lang="ts">
 import { useQuizStore } from "@/stores/quizStore";
-import { mapStores } from "pinia";
+import { mapActions, mapStores } from "pinia";
 import ButtonComponent from "../components/ButtonComponent.vue";
 import ProgressComponent from "../components/ProgressComponent.vue";
 
 export default {
   methods: {
-    selectAnswer(index: number) {
-      this.quizStore.selectAnswer(this.quizStore.currentQuestion, index);
+    ...mapActions(useQuizStore, ["selectAnswer", "gotoQuestion"]),
+    selectCurrentAnswer(index: number) {
+      this.selectAnswer(this.quizStore.currentQuestion, index);
     },
     changeQuestion(index: number) {
-      this.quizStore.gotoQuestion(index - 1);
+      this.gotoQuestion(index - 1);
     },
   },
   computed: {
@@ -56,7 +61,7 @@ export default {
     >
       <ButtonComponent
         :value="answer"
-        :onClick="selectAnswer"
+        :onClick="selectCurrentAnswer"
         :index="index"
         :class="[
           quizStore.questions[quizStore.currentQuestion].selectedAnswer === index
