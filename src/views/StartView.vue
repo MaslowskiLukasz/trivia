@@ -13,7 +13,6 @@ export default {
     ...mapActions(useQuizStore, ["fetchQuestions"]),
     startQuiz() {
       this.fetchQuestions();
-      console.log("start quiz");
     },
   },
   components: { ButtonComponent },
